@@ -19,10 +19,12 @@
 #include <winstl/filesystem/memory_mapped_file.hpp>
 #include <winstl/synch/event.hpp>
 
+#include <psapi.h>
 #include <Windows.h>
 
 #include <cstdlib>
 #include <iostream>
+#include <thread>
 
 
 #define PROGRAM_VER_MAJOR   0
@@ -59,6 +61,27 @@ void throw_(
     }
 }
 
+
+std::string GetProcessNameFromPid(DWORD pid) {
+    HANDLE hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid);
+    if (hProcess == NULL) {
+        return "Error: Could not open process";
+    }
+
+    char buffer[MAX_PATH];
+    if (GetProcessImageFileNameA(hProcess, buffer, MAX_PATH) == 0) {
+        CloseHandle(hProcess);
+        return "Error: Could not get image file name";
+    }
+
+    CloseHandle(hProcess);
+
+    std::string fullPath(buffer);
+    size_t lastSlash = fullPath.find_last_of("\\");
+    std::string processName = (lastSlash == std::string::npos) ? fullPath : fullPath.substr(lastSlash + 1);
+
+    return processName;
+}
 
 // [[noreturn]]
 __declspec(noreturn)
