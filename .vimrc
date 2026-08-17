@@ -1,7 +1,25 @@
+" Synesis C/C++ project .vimrc — aligned with .sis/.vscode/c_cxx/settings.json
 
-set expandtab
+set nocompatible
+filetype indent plugin on
+syntax enable
+set autoindent
+set backspace=indent,eol,start
 set hlsearch
+set incsearch
 set number
+
+" files.insertFinalNewline
+set eol
+set fixeol
+
+" editor.renderWhitespace: all
+set list
+set listchars=tab:->,trail:-,extends:>,precedes:<,nbsp:+
+
+" editor.detectIndentation: false — global defaults (editor.tabSize: 4, insertSpaces: true)
+set colorcolumn=76
+set expandtab
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
