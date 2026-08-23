@@ -34,6 +34,9 @@
 
 union Payload
 {
+#if defined(__GNUC__) && !defined(__clang__)
+    __extension__
+#endif
     struct
     {
         DWORD   pid;
