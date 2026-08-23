@@ -90,7 +90,7 @@ void run()
     winstl::event   ev_buffer_ready(L"DBWIN_BUFFER_READY", false, false);
     winstl::event   ev_data_ready(L"DBWIN_DATA_READY", false, false);
 
-    HANDLE          hFileMap    =   CreateFileMappingA(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(Payload), "DBWIN_BUFFER");
+    HANDLE const    hFileMap    =   CreateFileMappingA(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(Payload), "DBWIN_BUFFER");
 
     if (NULL == hFileMap)
     {
@@ -220,6 +220,8 @@ int wmain(int argc, wchar_t* argv[])
 
             run();
 
+#ifndef NDEBUG
+
             fwprintf(
                 stderr
             ,   L"%.*s: %s:%d: UNEXPECTED\n"
@@ -230,6 +232,7 @@ int wmain(int argc, wchar_t* argv[])
             ::DebugBreak();
 
             return EXIT_FAILURE;
+#endif
         default:
 
             std::wcerr
