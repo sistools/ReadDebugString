@@ -210,9 +210,9 @@ target_compile_options(${PROJECT_NAME}
 		$<$<OR:$<C_COMPILER_ID:Clang>,$<C_COMPILER_ID:AppleClang>,$<C_COMPILER_ID:GNU>>:
 			-Werror -Wall -Wextra -pedantic
 
-			-Wno-ignored-qualifiers
-			-Wno-incompatible-pointer-types-discards-qualifiers
-			-Wno-unused-parameter
+			# -Wno-ignored-qualifiers
+			# -Wno-incompatible-pointer-types-discards-qualifiers
+			# -Wno-unused-parameter
 		>
 		$<$<C_COMPILER_ID:MSVC>:
 			/WX /W4

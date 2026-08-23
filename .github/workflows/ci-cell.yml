@@ -94,4 +94,4 @@ jobs:
           set -euo pipefail
           PREFIX="${RUNNER_TEMP}/install-prefix"
           PROJECT="$(tr -d '[:space:]' < .sis/project_name.txt)"
-          "$PREFIX/bin/${PROJECT}.exe"
+          "$PREFIX/bin/${PROJECT}.exe" --version
