@@ -88,8 +88,8 @@ update_deps.cmd
 build/makefile.tmpl
 build/makefile.tools.xml
 
-realpath
-realpath_test
+ReadDebugString
+ReadDebugString_test
 
 
 # files (by pattern)
