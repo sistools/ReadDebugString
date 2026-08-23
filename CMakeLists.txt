@@ -207,16 +207,22 @@ add_executable(${PROJECT_NAME}
 
 target_compile_options(${PROJECT_NAME}
 	PRIVATE
-		$<$<OR:$<C_COMPILER_ID:Clang>,$<C_COMPILER_ID:AppleClang>,$<C_COMPILER_ID:GNU>>:
+		$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
 			-Werror -Wall -Wextra -pedantic
-
+		>
+		$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:
 			-Wno-anonymous-structs
 		>
-		$<$<C_COMPILER_ID:MSVC>:
+		$<$<CXX_COMPILER_ID:MSVC>:
 			/WX /W4
 
 			/wd4201
 		>
+)
+
+target_link_options(${PROJECT_NAME}
+	PRIVATE
+		$<$<CXX_COMPILER_ID:GNU>:-municode>
 )
 
 target_link_libraries(${PROJECT_NAME}
