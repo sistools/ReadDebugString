@@ -149,7 +149,7 @@ void run()
             }
             else
             {
-                if (r > STLSOFT_NUM_ELEMENTS(msg) - 3)
+                if (r > int(STLSOFT_NUM_ELEMENTS(msg) - 3))
                 {
                     msg[STLSOFT_NUM_ELEMENTS(msg) - 3] = '\r';
                     msg[STLSOFT_NUM_ELEMENTS(msg) - 2] = '\n';
