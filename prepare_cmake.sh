@@ -17,7 +17,7 @@ ProjectNameFile="$Dir/.sis/project_name.txt"
 ProjectName=$(tr -d '[:space:]' < "$ProjectNameFile")
 
 Configuration=Release
-CStandard=
+CxxStandard=
 MSVC_MT=0
 MinGW="${MinGW:=0}"
 RunMake=0
@@ -50,16 +50,16 @@ fi
 while [[ $# -gt 0 ]]; do
 
   case $1 in
-    --c-standard)
+    --cxx-standard)
 
       shift
-      CStandard=$1
-      case $CStandard in
-        99|11|17|23)
+      CxxStandard=$1
+      case $CxxStandard in
+        98|11|14|17|20|23)
           ;;
         *)
 
-          >&2 echo "$ScriptPath: ${SisClr_Red}${SisClr_Bold}invalid C standard '$CStandard'${SisClr_None}; expected 99, 11, 17, or 23"
+          >&2 echo "$ScriptPath: ${SisClr_Red}${SisClr_Bold}invalid C++ standard '$CxxStandard'${SisClr_None}; expected 98, 11, 14, 17, 20, or 23"
 
           exit 1
           ;;
@@ -172,7 +172,7 @@ cd $CMakeDir
 
 echo "Executing CMake for ${SisClr_Blue}${SisClr_Bold}${ProjectName}${SisClr_None} (in ${SisClr_Blue}${SisClr_Bold}${CMakeDir}${SisClr_None})"
 
-if [ -z "$CStandard" ]; then CMakeCStandardVariable="" ; else CMakeCStandardVariable="-DCMAKE_C_STANDARD=$CStandard" ; fi
+if [ -z "$CxxStandard" ]; then CMakeCStandardVariable="" ; else CMakeCStandardVariable="-DCMAKE_C_STANDARD=$CxxStandard" ; fi
 if [ $MSVC_MT -eq 0 ]; then CMakeMsvcMtFlag="OFF" ; else CMakeMsvcMtFlag="ON" ; fi
 if [ -z "$STLSoftDirGiven" ]; then CMakeSTLSoftVariable="" ; else CMakeSTLSoftVariable="-DSTLSOFT=$STLSoftDirGiven/" ; fi
 if [ $TestingDisabled -eq 0 ]; then CMakeBuildTestingFlag="ON" ; else CMakeBuildTestingFlag="OFF" ; fi
