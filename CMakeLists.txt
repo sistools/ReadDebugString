@@ -144,17 +144,34 @@ endif()
 
 # ############################
 # STLSoft
+#
+# NOTE: This is resolved before other dependencies because imported targets
+# may reference STLSoft::STLSoft in their link interfaces.
 
 if(DEFINED STLSOFT)
 
 	message("-- STLSOFT provided as CMake variable with value '${STLSOFT}'")
-
-	set(STLSOFT_INCLUDE_DIR ${STLSOFT}/include)
+	set(STLSOFT_INCLUDE_DIR "${STLSOFT}/include")
 elseif(DEFINED ENV{STLSOFT})
 
 	message("-- STLSOFT provided as environment variable with value '$ENV{STLSOFT}'")
+	set(STLSOFT_INCLUDE_DIR "$ENV{STLSOFT}/include")
+endif()
 
-	set(STLSOFT_INCLUDE_DIR $ENV{STLSOFT}/include)
+if(DEFINED STLSOFT_INCLUDE_DIR)
+
+	if(NOT IS_DIRECTORY "${STLSOFT_INCLUDE_DIR}")
+
+		message(FATAL_ERROR "STLSoft include directory not found: ${STLSOFT_INCLUDE_DIR}")
+	endif()
+
+	if(NOT TARGET STLSoft::STLSoft)
+
+		add_library(STLSoft::STLSoft INTERFACE IMPORTED GLOBAL)
+		set_target_properties(STLSoft::STLSoft PROPERTIES
+			INTERFACE_INCLUDE_DIRECTORIES "${STLSOFT_INCLUDE_DIR}"
+		)
+	endif()
 else()
 
 	set(STLSoft_REQUIRED_VERSION_ 1.11.1)
@@ -166,7 +183,7 @@ endif()
 
 if(DEFINED STLSOFT_INCLUDE_DIR)
 
-	include_directories(${STLSOFT_INCLUDE_DIR})
+	include_directories("${STLSOFT_INCLUDE_DIR}")
 endif()
 
 
