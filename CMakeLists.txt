@@ -216,6 +216,8 @@ target_compile_options(${PROJECT_NAME}
 		>
 		$<$<C_COMPILER_ID:MSVC>:
 			/WX /W4
+
+			/wd4201
 		>
 )
 
