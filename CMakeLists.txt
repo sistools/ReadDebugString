@@ -217,6 +217,7 @@ target_compile_options(${PROJECT_NAME}
 			/WX /W4
 
 			/wd4201
+			/wd4702
 		>
 )
 
