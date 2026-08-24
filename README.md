@@ -42,6 +42,8 @@ cmake -S . -B _build
 cmake --build _build --config Release
 ```
 
+Detailed installation and usage instructions are in [INSTALL.md](./INSTALL.md).
+
 
 ## Components
 
@@ -50,8 +52,8 @@ The project creates a single executable program, **ReadDebugString**.
 
 ## Examples
 
-The current scaffold does not yet expose command-line options or produce
-debugger output.
+The program supports `--help` and `--version`. Its debugger message-reading
+behaviour is still being developed.
 
 
 ## Project Information
