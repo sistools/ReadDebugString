@@ -34,6 +34,9 @@
 
 union Payload
 {
+#if defined(__GNUC__) && !defined(__clang__)
+    __extension__
+#endif
     struct
     {
         DWORD   pid;
@@ -90,7 +93,7 @@ void run()
     winstl::event   ev_buffer_ready(L"DBWIN_BUFFER_READY", false, false);
     winstl::event   ev_data_ready(L"DBWIN_DATA_READY", false, false);
 
-    HANDLE          hFileMap    =   CreateFileMappingA(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(Payload), "DBWIN_BUFFER");
+    HANDLE const    hFileMap    =   CreateFileMappingA(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(Payload), "DBWIN_BUFFER");
 
     if (NULL == hFileMap)
     {
@@ -149,7 +152,7 @@ void run()
             }
             else
             {
-                if (r > STLSOFT_NUM_ELEMENTS(msg) - 3)
+                if (r > int(STLSOFT_NUM_ELEMENTS(msg) - 3))
                 {
                     msg[STLSOFT_NUM_ELEMENTS(msg) - 3] = '\r';
                     msg[STLSOFT_NUM_ELEMENTS(msg) - 2] = '\n';
@@ -220,6 +223,8 @@ int wmain(int argc, wchar_t* argv[])
 
             run();
 
+#ifndef NDEBUG
+
             fwprintf(
                 stderr
             ,   L"%.*s: %s:%d: UNEXPECTED\n"
@@ -230,6 +235,7 @@ int wmain(int argc, wchar_t* argv[])
             ::DebugBreak();
 
             return EXIT_FAILURE;
+#endif
         default:
 
             std::wcerr
