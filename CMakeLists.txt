@@ -4,7 +4,7 @@
 # Purpose:  Top-level CMake lists file for ReadDebugString
 #
 # Created:  15th August 2025
-# Updated:  18th August 2026
+# Updated:  24th August 2026
 #
 # ######################################################################## #
 
@@ -231,6 +231,11 @@ target_link_libraries(${PROJECT_NAME}
 
 install(TARGETS ${PROJECT_NAME}
 	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+install(FILES
+	doc/${PROJECT_NAME_LOWER}.1
+	DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
 )
 
 
