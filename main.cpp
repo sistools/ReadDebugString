@@ -29,7 +29,7 @@
 
 #define PROGRAM_VER_MAJOR   0
 #define PROGRAM_VER_MINOR   0
-#define PROGRAM_VER_PATCH   1
+#define PROGRAM_VER_PATCH   2
 
 
 union Payload
