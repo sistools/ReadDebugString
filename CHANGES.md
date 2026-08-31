@@ -1,6 +1,11 @@
 # ReadDebugString - Changes <!-- omit in toc -->
 
 
+## 0.0.2 - 27th August 2026
+
+* Fixed **cmake/BuildType.cmake** so the default `CMAKE_BUILD_TYPE` is set correctly in the CMake cache (`set(CMAKE_BUILD_TYPE … CACHE …)` instead of `set(CACHE CMAKE_BUILD_TYPE …)`);
+
+
 ## 0.0.1 - 24th August 2026
 
 * Replaced the initial executable scaffold with a Windows debugger message reader;
